@@ -2,13 +2,13 @@
 
 ##### Slides
 
-+ [**Aula 1 - Introdução a Sistemas de Bancos de Dados**]()
++ [**Aula 1 - Introdução a Sistemas de Bancos de Dados**]()
 
-+ [**Aula 2 - Abordagem Entidade Relacionamento**]()
++ [**Aula 2 - Abordagem Entidade Relacionamento**]()
 
-+ [**Aula 03 - Abordagem Relacional**]()
++ [**Aula 03 - Abordagem Relacional**]()
 
-+ [**Aula 04 - Normalização**]() 
++ [**Aula 04 - Normalização**]() 
   
 ##### Vídeos
 
