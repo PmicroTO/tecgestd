@@ -1,0 +1,16 @@
+
+Seção I Conceitos fundamentais: sistemas de informação nos negócios.
+    O mundo real dos sistemas de informação.
+        “Caso do mundo real 1”: eCourier, Cablecom e Bryan Cave: como agregar
+        valor por meio da inteligência de negócios
+    Os papéis fundamentais dos SI nos negócios Tendências em sistemas de
+    informação O papel do e-Business nos negócios Tipos de sistemas de
+    informação Desafios gerenciais da tecnologia da informação
+Seção II Conceitos fundamentais: os componentes dos sistemas de informação
+    Conceitos de sistema: uma fundação
+        “Caso do mundo real 2”: JetBlue e a administração de veteranos:
+        a importância fundamental dos processo de TI
+    Componentes de um sistema de informação Recursos do sistema de informação
+    Atividades do sistema de informação Reconhecendo os sistemas de informação
+        “Caso do mundo real 3”: Sew What? Inc. o papel da tecnologia da
+        informação no sucesso de pequenos negócios
