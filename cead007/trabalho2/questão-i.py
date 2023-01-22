@@ -7,9 +7,9 @@ def grafico(_a, _b, _c):
     x2 = ((b * -1) - (dlt**0.5)) / (2 * a)
     abcissas = (x1 + x2) / 2
     vertice = (a * (abcissas**2)) + (b * abcissas) + c
-    print("As raízes da equação " + str(a) + "x^2" + str(b) + "x" + str(c) +
-          " são " + "\nx1: " + str(x1) + "\nx2: " + str(x2) + "\nvertice: " +
-          str(vertice) + "\ncoordenada x: " + str(abcissas))
+    print("As raízes da equação " + str(a) + "x^2+" + str(b) + "x+" + str(c) +
+          " são " + "\nx1: " + str(x1) + "\nx2: " + str(x2) + "\nvertices: " +
+          "(" + str(abcissas) + ", " + str(vertice) + ")")
 
     def retangulos(precisao):
         meiaparabola = (abs(x1) + abs(x2)) / 2
@@ -26,7 +26,7 @@ def grafico(_a, _b, _c):
 
     # segui o modelo do material http://wwwp.fc.unesp.br/~mauri/Down/area.pdf
     # meu raciocinio foi pegar o ultimo exemplo e apenas duplicar o resultado p/ o outro lado da curva
-
+    # quanto maior a precisao, menor vai ser o delta x
     retangulos(int(D))
 
 
