@@ -19,8 +19,10 @@ CREATE TABLE public.cliente (
 	numero varchar(50) NOT NULL,
 	email varchar(50) NOT NULL,
 	nome varchar(50) NOT NULL,
+	complemento varchar(255) NOT NULL,
 	CONSTRAINT cliente_pk PRIMARY KEY (cpfcli)
 );
+CREATE INDEX cliente_cpfcli_idx ON public.cliente USING btree (cpfcli, nome, email, telefone, cep, estado, cidade, rua, numero);
 
 -- Permissions
 
@@ -58,12 +60,12 @@ GRANT ALL ON TABLE public.mercado TO lucio;
 -- DROP TABLE public.entrega;
 
 CREATE TABLE public.entrega (
-	codentrega int8 NOT NULL,
 	tipo varchar(10) NOT NULL, -- app ou mercado
 	placa bpchar(7) NULL, -- Caso seja pelo app.
 	telefone numeric(14) NULL, -- Telefone do entregador caso seja pelo app.
 	hrsaida timestamp NOT NULL,
 	hrchegada timestamp NULL, -- Null pois pode ser que nao chegue.
+	codentrega bigserial NOT NULL,
 	CONSTRAINT entrega_pk PRIMARY KEY (codentrega)
 );
 COMMENT ON TABLE public.entrega IS 'Livro Base, pag 156, 5.2.8,implementação de generalização/especialização, uma tabela por hierarquia.
@@ -91,9 +93,9 @@ GRANT ALL ON TABLE public.entrega TO lucio;
 -- DROP TABLE public.lista;
 
 CREATE TABLE public.lista (
-	codlista int8 NOT NULL,
 	"data" timestamp NOT NULL,
 	valor money NOT NULL DEFAULT 0.00,
+	codlista bigserial NOT NULL,
 	CONSTRAINT lista_pk PRIMARY KEY (codlista)
 );
 
@@ -110,9 +112,8 @@ GRANT ALL ON TABLE public.lista TO lucio;
 -- DROP TABLE public.contrato;
 
 CREATE TABLE public.contrato (
-	codentrega int8 NOT NULL,
 	cnpjmer numeric(14) NOT NULL,
-	CONSTRAINT contrato_pk PRIMARY KEY (codentrega, cnpjmer),
+	codentrega bigserial NOT NULL,
 	CONSTRAINT contrato_fk FOREIGN KEY (cnpjmer) REFERENCES public.mercado(cnpjmer),
 	CONSTRAINT contrato_fk_1 FOREIGN KEY (codentrega) REFERENCES public.entrega(codentrega)
 );
@@ -156,12 +157,13 @@ GRANT ALL ON TABLE public.produto TO lucio;
 -- DROP TABLE public.promocao;
 
 CREATE TABLE public.promocao (
-	codprom int8 NOT NULL,
 	cnpjmer numeric(14) NOT NULL,
 	nome varchar(50) NOT NULL,
-	CONSTRAINT promocao_pk PRIMARY KEY (codprom, cnpjmer),
+	codprom bigserial NOT NULL,
+	CONSTRAINT promocao_pk PRIMARY KEY (cnpjmer, codprom),
 	CONSTRAINT promocao_fk FOREIGN KEY (cnpjmer) REFERENCES public.mercado(cnpjmer)
 );
+CREATE INDEX promocao_codprom_idx ON public.promocao USING btree (codprom, cnpjmer, nome);
 
 -- Permissions
 
@@ -176,13 +178,13 @@ GRANT ALL ON TABLE public.promocao TO lucio;
 -- DROP TABLE public.prodpromocao;
 
 CREATE TABLE public.prodpromocao (
-	codprom int8 NOT NULL,
 	codprod numeric(13) NOT NULL, -- Codigo de barras, porem o nome CodProd facilita identificacao como FK.
 	cnpjmer numeric(14) NOT NULL,
 	quantia int4 NOT NULL,
 	desconto money NOT NULL,
-	CONSTRAINT promocaoprod_pk PRIMARY KEY (codprom, codprod, cnpjmer),
-	CONSTRAINT promocaoprod_fk FOREIGN KEY (codprom,cnpjmer) REFERENCES public.promocao(codprom,cnpjmer),
+	codprom bigserial NOT NULL,
+	CONSTRAINT prodpromocao_pk PRIMARY KEY (codprod, cnpjmer, codprom),
+	CONSTRAINT prodpromocao_fk FOREIGN KEY (cnpjmer,codprom) REFERENCES public.promocao(cnpjmer,codprom),
 	CONSTRAINT promocaoprod_fk_1 FOREIGN KEY (cnpjmer,codprod) REFERENCES public.produto(cnpjmer,codprod)
 );
 COMMENT ON TABLE public.prodpromocao IS 'Separado pela impossibilidade de multivalor na abordagem relacional.';
@@ -204,13 +206,13 @@ GRANT ALL ON TABLE public.prodpromocao TO lucio;
 -- DROP TABLE public.oferta;
 
 CREATE TABLE public.oferta (
-	codprom int8 NOT NULL,
 	codprod numeric(13) NOT NULL, -- Codigo de barras, porem o nome CodProd facilita identificacao como FK.
 	cnpjmer numeric(14) NOT NULL,
-	CONSTRAINT oferta_pk PRIMARY KEY (codprom, codprod, cnpjmer),
+	codprom bigserial NOT NULL,
+	CONSTRAINT oferta_pk PRIMARY KEY (codprod, cnpjmer, codprom),
 	CONSTRAINT oferta_fk FOREIGN KEY (cnpjmer) REFERENCES public.mercado(cnpjmer),
 	CONSTRAINT oferta_fk_1 FOREIGN KEY (cnpjmer,codprod) REFERENCES public.produto(cnpjmer,codprod),
-	CONSTRAINT oferta_fk_2 FOREIGN KEY (codprom,cnpjmer) REFERENCES public.promocao(codprom,cnpjmer)
+	CONSTRAINT oferta_fk_2 FOREIGN KEY (cnpjmer,codprom) REFERENCES public.promocao(cnpjmer,codprom)
 );
 COMMENT ON TABLE public.oferta IS 'Livro Base pag 154. 5.2.7, relacionamentos de gau maior que 2.';
 
@@ -231,9 +233,9 @@ GRANT ALL ON TABLE public.oferta TO lucio;
 -- DROP TABLE public.historico;
 
 CREATE TABLE public.historico (
-	codhist int8 NOT NULL,
 	cpfcli numeric(11) NOT NULL,
 	valorgasto money NOT NULL DEFAULT 0.00,
+	codhist bigserial NOT NULL,
 	CONSTRAINT historico_pk PRIMARY KEY (codhist),
 	CONSTRAINT historico_fk FOREIGN KEY (cpfcli) REFERENCES public.cliente(cpfcli)
 );
@@ -252,11 +254,11 @@ GRANT ALL ON TABLE public.historico TO lucio;
 -- DROP TABLE public.histprod;
 
 CREATE TABLE public.histprod (
-	codhist int8 NOT NULL,
 	codprod numeric(13) NOT NULL, -- Codigo de barras, porem o nome CodProd facilita identificacao como FK.
 	quantia int4 NOT NULL,
 	cnpjmer numeric(14) NOT NULL,
-	CONSTRAINT histprod_pk PRIMARY KEY (cnpjmer, codprod, codhist),
+	codhist bigserial NOT NULL,
+	CONSTRAINT histprod_pk PRIMARY KEY (codprod, cnpjmer, codhist),
 	CONSTRAINT histprod_fk FOREIGN KEY (codhist) REFERENCES public.historico(codhist),
 	CONSTRAINT histprod_fk_1 FOREIGN KEY (cnpjmer,codprod) REFERENCES public.produto(cnpjmer,codprod)
 );
@@ -278,12 +280,12 @@ GRANT ALL ON TABLE public.histprod TO lucio;
 -- DROP TABLE public.histprom;
 
 CREATE TABLE public.histprom (
-	codprom int8 NOT NULL,
 	cnpjmer numeric(14) NOT NULL,
-	codhist int8 NOT NULL,
 	quantia int4 NOT NULL,
-	CONSTRAINT histprom_pk PRIMARY KEY (codprom, cnpjmer, codhist),
-	CONSTRAINT histprom_fk FOREIGN KEY (codprom,cnpjmer) REFERENCES public.promocao(codprom,cnpjmer),
+	codprom bigserial NOT NULL,
+	codhist bigserial NOT NULL,
+	CONSTRAINT histprom_pk PRIMARY KEY (cnpjmer, codprom, codhist),
+	CONSTRAINT histprom_fk FOREIGN KEY (cnpjmer,codprom) REFERENCES public.promocao(cnpjmer,codprom),
 	CONSTRAINT histprom_fk_1 FOREIGN KEY (codhist) REFERENCES public.historico(codhist)
 );
 
@@ -300,11 +302,11 @@ GRANT ALL ON TABLE public.histprom TO lucio;
 -- DROP TABLE public.listaprod;
 
 CREATE TABLE public.listaprod (
-	codlista int8 NOT NULL,
 	cnpjmer numeric(14) NOT NULL,
 	codprod numeric(13) NOT NULL, -- Codigo de barras, porem o nome CodProd facilita identificacao como FK.
 	quantia int4 NOT NULL,
-	CONSTRAINT listaprod_pk PRIMARY KEY (codlista, cnpjmer, codprod),
+	codlista bigserial NOT NULL,
+	CONSTRAINT listaprod_pk PRIMARY KEY (cnpjmer, codprod, codlista),
 	CONSTRAINT listaprod_fk FOREIGN KEY (codlista) REFERENCES public.lista(codlista),
 	CONSTRAINT listaprod_fk_1 FOREIGN KEY (cnpjmer,codprod) REFERENCES public.produto(cnpjmer,codprod)
 );
@@ -326,12 +328,12 @@ GRANT ALL ON TABLE public.listaprod TO lucio;
 -- DROP TABLE public.listaprom;
 
 CREATE TABLE public.listaprom (
-	codlista int8 NOT NULL,
-	codprom int8 NOT NULL,
 	cnpjmer numeric(14) NOT NULL,
 	quantia int4 NOT NULL,
-	CONSTRAINT listaprom_pk PRIMARY KEY (codlista, codprom, cnpjmer),
-	CONSTRAINT listaprom_fk FOREIGN KEY (codprom,cnpjmer) REFERENCES public.promocao(codprom,cnpjmer),
+	codprom bigserial NOT NULL,
+	codlista bigserial NOT NULL,
+	CONSTRAINT listaprom_pk PRIMARY KEY (cnpjmer, codprom, codlista),
+	CONSTRAINT listaprom_fk FOREIGN KEY (cnpjmer,codprom) REFERENCES public.promocao(cnpjmer,codprom),
 	CONSTRAINT listaprom_fk_1 FOREIGN KEY (codlista) REFERENCES public.lista(codlista)
 );
 
@@ -348,10 +350,10 @@ GRANT ALL ON TABLE public.listaprom TO lucio;
 -- DROP TABLE public.registra;
 
 CREATE TABLE public.registra (
-	codlista int8 NOT NULL,
-	codhist int8 NOT NULL,
 	cpfcli numeric(11) NOT NULL,
-	CONSTRAINT registra_pk PRIMARY KEY (codlista, codhist, cpfcli),
+	codlista bigserial NOT NULL,
+	codhist bigserial NOT NULL,
+	CONSTRAINT registra_pk PRIMARY KEY (cpfcli, codlista, codhist),
 	CONSTRAINT registra_fk FOREIGN KEY (cpfcli) REFERENCES public.cliente(cpfcli),
 	CONSTRAINT registra_fk_1 FOREIGN KEY (codlista) REFERENCES public.lista(codlista),
 	CONSTRAINT registra_fk_2 FOREIGN KEY (codhist) REFERENCES public.historico(codhist)
