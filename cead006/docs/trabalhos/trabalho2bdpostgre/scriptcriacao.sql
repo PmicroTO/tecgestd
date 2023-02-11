@@ -18,6 +18,7 @@ CREATE TABLE public.cliente (
 	rua varchar(50) NOT NULL,
 	numero varchar(50) NOT NULL,
 	email varchar(50) NOT NULL,
+	nome varchar(50) NOT NULL,
 	CONSTRAINT cliente_pk PRIMARY KEY (cpfcli)
 );
 
@@ -369,4 +370,3 @@ GRANT ALL ON TABLE public.registra TO lucio;
 
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO public;
-
