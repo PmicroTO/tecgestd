@@ -1,5 +1,4 @@
 CREATE ROLE listapopular NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOLOGIN NOREPLICATION NOBYPASSRLS;
-
 -- DROP SCHEMA listapopular;
 
 CREATE SCHEMA listapopular AUTHORIZATION postgres;
@@ -543,7 +542,7 @@ GRANT ALL ON TABLE listapopular.historico TO lucio;
 CREATE TABLE listapopular.lista (
 	codlista bigserial NOT NULL,
 	"data" timestamp NOT NULL,
-	valor money NOT NULL DEFAULT 0.00,
+	valor money NULL DEFAULT 0.00,
 	CONSTRAINT lista_pk PRIMARY KEY (codlista)
 );
 
