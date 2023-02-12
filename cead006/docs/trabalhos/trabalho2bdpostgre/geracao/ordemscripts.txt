@@ -1,0 +1,2 @@
+cliente -> mercado -> produto -> promocao -> promocaoproduto -> lista ->
+listaprod/listaprom -> entrega -> contrato
