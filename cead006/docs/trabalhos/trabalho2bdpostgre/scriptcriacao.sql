@@ -609,4 +609,3 @@ GRANT ALL ON TABLE listapopular.contrato TO lucio;
 
 GRANT ALL ON SCHEMA listapopular TO postgres;
 GRANT ALL ON SCHEMA listapopular TO listapopular;
-
