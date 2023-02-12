@@ -52,9 +52,29 @@ order by prod.valor asc;*/
 			on cli.cpfcli=lprom.cpfcli
 	where cli.cpfcli = '3448445363';*/
 
+-- 
 
+-- Lista as promocoes de cada mercado
+/*select mer.nome as mercado, promo.nome as promocoes
+	from listapopular.mercado as mer
+		join listapopular.promocao as promo
+			on promo.cnpjmer = mer.cnpjmer 
+	order by mer.nome;*/
 
-	
-	
+-- Lista os produtos por mercado
+/*
+select mer.nome, prod.nome, prod.valor 
+	from listapopular.mercado as mer
+		join listapopular.produto as prod 
+			on prod.cnpjmer = mer.cnpjmer 
+	order by mer.nome
+*/
 
-
+-- lista os produtos que cada promocao contem
+/*select distinct promo.nome, promo.codprom , prod.nome, promoprod.quantia
+	from listapopular.promocao as promo
+		join listapopular.promocaoproduto as promoprod
+			on promoprod.codprom = promo.codprom 
+		join listapopular.produto as prod
+			on prod.codprod=promoprod.codprod
+		group by promo.nome, promo.codprom , prod.nome, promoprod.quantia*/
