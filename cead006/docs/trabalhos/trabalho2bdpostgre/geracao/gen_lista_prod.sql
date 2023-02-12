@@ -3,4 +3,5 @@ INSERT INTO listapopular.listaprod (codlista, cnpjmer, codprod, quantia, cpfcli)
 INSERT INTO listapopular.listaprod (codlista, cnpjmer, codprod, quantia, cpfcli) VALUES(6, 26484118000126, 3998564680905, 3, 48782206007);
 INSERT INTO listapopular.listaprod (codlista, cnpjmer, codprod, quantia, cpfcli) VALUES(6, 3309811000167, 4368578310317, 4, 48782206007);
 INSERT INTO listapopular.listaprod (codlista, cnpjmer, codprod, quantia, cpfcli) VALUES(6, 3309811000167, 1070178963475, 4, 48782206007);
+INSERT INTO listapopular.listaprod (codlista, cnpjmer, codprod, quantia, cpfcli) VALUES(1, 80421445000184, 1270376122524, 4, 48782206007);
 
