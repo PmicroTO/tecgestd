@@ -19,10 +19,14 @@ where pro.cnpjmer = lp.cnpjmer and lis.cpfcli = cli.cpfcli and lis.cpfcli = '344
 /*select prod.valor, prod.nome from listapopular.produto as prod
 where prod.valor > 50::money;*/
 
--- lista o Pão mais barato em cada mercado ordenando-os pelo valor minimo
-select MIN (prod.valor), prod.nome, mer.nome  from listapopular.produto as prod, listapopular.mercado as mer
+-- lista o Pão mais barato em cada mercado ordenando-os pelo valor minimo. 
+/*select MIN (prod.valor), prod.nome, mer.nome  from listapopular.produto as prod, listapopular.mercado as mer
 where prod.nome like '%pao%' or prod.nome like '%Pao%'
 group by prod.nome, mer.nome
-order by min(prod.valor) asc;
+order by min(prod.valor) asc;*/
 
--- 
+-- Lista os produtos mais caros de todos os mercados com valores acima de 50 reais.
+/*select prod.valor, prod.nome, mer.nome  from listapopular.produto as prod, listapopular.mercado as mer
+where prod.valor > 50::money
+order by prod.valor asc;*/
+
