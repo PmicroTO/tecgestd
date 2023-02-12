@@ -482,39 +482,6 @@ ALTER TABLE listapopular.cliente OWNER TO lucio;
 GRANT ALL ON TABLE listapopular.cliente TO lucio;
 
 
--- listapopular.entrega definition
-
--- Drop table
-
--- DROP TABLE listapopular.entrega;
-
-CREATE TABLE listapopular.entrega (
-	codentrega bigserial NOT NULL,
-	tipo varchar(10) NOT NULL, -- app ou mercado
-	placa bpchar(7) NULL, -- Caso seja pelo app.
-	telefone numeric(14) NULL, -- Telefone do entregador caso seja pelo app.
-	hrsaida timestamp NOT NULL,
-	hrchegada timestamp NULL, -- Null pois pode ser que nao chegue.
-	CONSTRAINT entrega_pk PRIMARY KEY (codentrega)
-);
-COMMENT ON TABLE listapopular.entrega IS 'Livro Base, pag 156, 5.2.8,implementação de generalização/especialização, uma tabela por hierarquia.
-
-Tipo de entrega, do app ou propria do mercado.
-Placa de veiculo e Telefone do entregador sendo Null, preenchidos caso seja entrega do app.';
-
--- Column comments
-
-COMMENT ON COLUMN listapopular.entrega.tipo IS 'app ou mercado';
-COMMENT ON COLUMN listapopular.entrega.placa IS 'Caso seja pelo app.';
-COMMENT ON COLUMN listapopular.entrega.telefone IS 'Telefone do entregador caso seja pelo app.';
-COMMENT ON COLUMN listapopular.entrega.hrchegada IS 'Null pois pode ser que nao chegue.';
-
--- Permissions
-
-ALTER TABLE listapopular.entrega OWNER TO lucio;
-GRANT ALL ON TABLE listapopular.entrega TO lucio;
-
-
 -- listapopular.historico definition
 
 -- Drop table
@@ -576,24 +543,39 @@ ALTER TABLE listapopular.mercado OWNER TO lucio;
 GRANT ALL ON TABLE listapopular.mercado TO lucio;
 
 
--- listapopular.contrato definition
+-- listapopular.entrega definition
 
 -- Drop table
 
--- DROP TABLE listapopular.contrato;
+-- DROP TABLE listapopular.entrega;
 
-CREATE TABLE listapopular.contrato (
-	cnpjmer numeric(14) NOT NULL,
-	codentrega int8 NOT NULL,
-	CONSTRAINT contrato_fk FOREIGN KEY (cnpjmer) REFERENCES listapopular.mercado(cnpjmer),
-	CONSTRAINT contrato_fk_1 FOREIGN KEY (codentrega) REFERENCES listapopular.entrega(codentrega)
+CREATE TABLE listapopular.entrega (
+	codentrega bigserial NOT NULL,
+	tipo varchar(10) NOT NULL, -- app ou mercado
+	placa bpchar(7) NULL, -- Caso seja pelo app.
+	telefone numeric(14) NULL, -- Telefone do entregador caso seja pelo app.
+	hrsaida timestamp NOT NULL,
+	hrchegada timestamp NULL, -- Null pois pode ser que nao chegue.
+	codlista int8 NOT NULL,
+	CONSTRAINT entrega_pk PRIMARY KEY (codentrega),
+	CONSTRAINT entrega_fk FOREIGN KEY (codlista) REFERENCES listapopular.lista(codlista)
 );
-COMMENT ON TABLE listapopular.contrato IS 'Livro Base pag 154. 5.2.6, relacionamentos n:n.';
+COMMENT ON TABLE listapopular.entrega IS 'Livro Base, pag 156, 5.2.8,implementação de generalização/especialização, uma tabela por hierarquia.
+
+Tipo de entrega, do app ou propria do mercado.
+Placa de veiculo e Telefone do entregador sendo Null, preenchidos caso seja entrega do app.';
+
+-- Column comments
+
+COMMENT ON COLUMN listapopular.entrega.tipo IS 'app ou mercado';
+COMMENT ON COLUMN listapopular.entrega.placa IS 'Caso seja pelo app.';
+COMMENT ON COLUMN listapopular.entrega.telefone IS 'Telefone do entregador caso seja pelo app.';
+COMMENT ON COLUMN listapopular.entrega.hrchegada IS 'Null pois pode ser que nao chegue.';
 
 -- Permissions
 
-ALTER TABLE listapopular.contrato OWNER TO lucio;
-GRANT ALL ON TABLE listapopular.contrato TO lucio;
+ALTER TABLE listapopular.entrega OWNER TO lucio;
+GRANT ALL ON TABLE listapopular.entrega TO lucio;
 
 
 -- listapopular.produto definition
@@ -664,6 +646,26 @@ ALTER TABLE listapopular.registra OWNER TO lucio;
 GRANT ALL ON TABLE listapopular.registra TO lucio;
 
 
+-- listapopular.contrato definition
+
+-- Drop table
+
+-- DROP TABLE listapopular.contrato;
+
+CREATE TABLE listapopular.contrato (
+	cnpjmer numeric(14) NOT NULL,
+	codentrega int8 NOT NULL,
+	CONSTRAINT contrato_fk FOREIGN KEY (cnpjmer) REFERENCES listapopular.mercado(cnpjmer),
+	CONSTRAINT contrato_fk_1 FOREIGN KEY (codentrega) REFERENCES listapopular.entrega(codentrega)
+);
+COMMENT ON TABLE listapopular.contrato IS 'Livro Base pag 154. 5.2.6, relacionamentos n:n.';
+
+-- Permissions
+
+ALTER TABLE listapopular.contrato OWNER TO lucio;
+GRANT ALL ON TABLE listapopular.contrato TO lucio;
+
+
 -- listapopular.listaprod definition
 
 -- Drop table
@@ -712,37 +714,13 @@ ALTER TABLE listapopular.listaprom OWNER TO lucio;
 GRANT ALL ON TABLE listapopular.listaprom TO lucio;
 
 
--- listapopular.oferta definition
+-- listapopular.promocaoproduto definition
 
 -- Drop table
 
--- DROP TABLE listapopular.oferta;
+-- DROP TABLE listapopular.promocaoproduto;
 
-CREATE TABLE listapopular.oferta (
-	codprod numeric(13) NULL,
-	cnpjmer numeric(14) NOT NULL,
-	codprom int8 NULL,
-	CONSTRAINT oferta_pk PRIMARY KEY (cnpjmer),
-	CONSTRAINT oferta_fk FOREIGN KEY (cnpjmer) REFERENCES listapopular.mercado(cnpjmer),
-	CONSTRAINT oferta_fk_1 FOREIGN KEY (cnpjmer,codprod) REFERENCES listapopular.produto(cnpjmer,codprod),
-	CONSTRAINT oferta_fk_2 FOREIGN KEY (cnpjmer,codprom) REFERENCES listapopular.promocao(cnpjmer,codprom)
-);
-COMMENT ON TABLE listapopular.oferta IS 'Livro Base pag 154. 5.2.7, relacionamentos de gau maior que 2.
-A oferta poder ser de produto ou promocao.';
-
--- Permissions
-
-ALTER TABLE listapopular.oferta OWNER TO lucio;
-GRANT ALL ON TABLE listapopular.oferta TO lucio;
-
-
--- listapopular.prodpromocao definition
-
--- Drop table
-
--- DROP TABLE listapopular.prodpromocao;
-
-CREATE TABLE listapopular.prodpromocao (
+CREATE TABLE listapopular.promocaoproduto (
 	codprom int8 NOT NULL,
 	codprod numeric(13) NOT NULL, -- Codigo de barras, porem o nome CodProd facilita identificacao como FK.
 	cnpjmer numeric(14) NOT NULL,
@@ -752,16 +730,16 @@ CREATE TABLE listapopular.prodpromocao (
 	CONSTRAINT prodpromocao_fk FOREIGN KEY (cnpjmer,codprom) REFERENCES listapopular.promocao(cnpjmer,codprom),
 	CONSTRAINT promocaoprod_fk_1 FOREIGN KEY (cnpjmer,codprod) REFERENCES listapopular.produto(cnpjmer,codprod)
 );
-COMMENT ON TABLE listapopular.prodpromocao IS 'Separado pela impossibilidade de multivalor na abordagem relacional.';
+COMMENT ON TABLE listapopular.promocaoproduto IS 'Separado pela impossibilidade de multivalor na abordagem relacional.';
 
 -- Column comments
 
-COMMENT ON COLUMN listapopular.prodpromocao.codprod IS 'Codigo de barras, porem o nome CodProd facilita identificacao como FK.';
+COMMENT ON COLUMN listapopular.promocaoproduto.codprod IS 'Codigo de barras, porem o nome CodProd facilita identificacao como FK.';
 
 -- Permissions
 
-ALTER TABLE listapopular.prodpromocao OWNER TO lucio;
-GRANT ALL ON TABLE listapopular.prodpromocao TO lucio;
+ALTER TABLE listapopular.promocaoproduto OWNER TO lucio;
+GRANT ALL ON TABLE listapopular.promocaoproduto TO lucio;
 
 
 
