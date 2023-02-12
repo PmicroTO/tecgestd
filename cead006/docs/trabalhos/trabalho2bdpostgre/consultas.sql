@@ -15,8 +15,8 @@ ORDER BY valor ASC;
 
 -- lista arroz em ordem crescente de preco
 
-SELECT nome,
-       valor
+SELECT listapopular.produto.nome,
+       listapopular.produto.valor
 FROM listapopular.produto
 WHERE nome like '%Arroz%'
   OR nome like '%arroz%'
@@ -196,7 +196,7 @@ SELECT nome,
        valor
 FROM listapopular.produto
 WHERE nome like '%pao%'
-  OR nome like '%pao%'
+  OR nome like '%Pao%'
   AND valor < 11.50 :: MONEY
 ORDER BY valor ASC;
 
