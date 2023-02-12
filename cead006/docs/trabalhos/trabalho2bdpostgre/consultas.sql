@@ -30,51 +30,52 @@ order by min(prod.valor) asc;*/
 where prod.valor > 50::money
 order by prod.valor asc;*/
 
--- Consultas com JUNÇÃO
+-- Consultas com JOIN
 
--- Lista cada produto avulço na lista de compras de um usuario dado seu cpf.
-/*select cli.nome, listapopular.produto.nome, listapopular.produto.valor, listprod.quantia 
+-- Lista cada produto avulço na lista de compras de um usuario dado seu cpf. JOIN + Ordenacao
+/*
+select distinct cli.nome, prod.nome, prod.valor, lpro.quantia
 	from listapopular.cliente as cli
-		join listapopular.lista as lis 
-			on lis.cpfcli=cli.cpfcli
-		join listapopular.listaprod as listprod 
-			on listprod.cpfcli=cli.cpfcli
-		join listapopular.produto 
-			on listapopular.produto.codprod=listprod.codprod
-	where cli.cpfcli = 48782206007;*/
+		join listapopular.listaprod as lpro
+			on lpro.cpfcli = cli.cpfcli 
+		join listapopular.produto as prod
+			on prod.cnpjmer = lpro.cnpjmer 
+	where cli.cpfcli = 48782206007
+	order by valor desc;*/
 
--- Lista cada promocao na lista de compras de um usuario dado seu cpf.
-/*select prom.nome, cli.nome, lprom.codlista  
+
+/*-- Lista cada promocao na lista de compras de um usuario dado seu cpf. JOIN + Comparacao
+select cli.nome, prom.nome,lprom.quantia, lprom.codlista  
 	from listapopular.promocao as prom
 		join listapopular.listaprom as lprom
 			on lprom.codprom=prom.codprom 
 		join listapopular.cliente as cli
 			on cli.cpfcli=lprom.cpfcli
-	where cli.cpfcli = '3448445363';*/
+	where cli.cpfcli = '3448445363'; */
 
--- 
-
--- Lista as promocoes de cada mercado
-/*select mer.nome as mercado, promo.nome as promocoes
-	from listapopular.mercado as mer
-		join listapopular.promocao as promo
-			on promo.cnpjmer = mer.cnpjmer 
-	order by mer.nome;*/
-
--- Lista os produtos por mercado
 /*
-select mer.nome, prod.nome, prod.valor 
-	from listapopular.mercado as mer
-		join listapopular.produto as prod 
-			on prod.cnpjmer = mer.cnpjmer 
-	order by mer.nome
-*/
-
 -- lista os produtos que cada promocao contem
-/*select distinct promo.nome, promo.codprom , prod.nome, promoprod.quantia
+select distinct promo.nome, promo.codprom , prod.nome, promoprod.quantia 
 	from listapopular.promocao as promo
 		join listapopular.promocaoproduto as promoprod
 			on promoprod.codprom = promo.codprom 
 		join listapopular.produto as prod
 			on prod.codprod=promoprod.codprod
-		group by promo.nome, promo.codprom , prod.nome, promoprod.quantia*/
+		group by promo.nome, promo.codprom , prod.nome, promoprod.quantia;
+	
+-- Lista as promocoes de cada mercado
+select mer.nome as mercado, promo.nome as promocoes
+	from listapopular.mercado as mer
+		join listapopular.promocao as promo
+			on promo.cnpjmer = mer.cnpjmer 
+	order by mer.nome;
+
+-- Lista os produtos por mercado
+select mer.nome, prod.nome, prod.valor 
+	from listapopular.mercado as mer
+		join listapopular.produto as prod 
+			on prod.cnpjmer = mer.cnpjmer 
+	order by mer.nome;
+
+
+*/
