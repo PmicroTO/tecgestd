@@ -1,2 +1,10 @@
-cliente -> mercado -> produto -> promocao -> promocaoproduto -> lista ->
-listaprod/listaprom -> entrega -> contrato
+gen_cliente.sql
+gen_mercado.sql
+gen_produdos.sql
+gen_promocao.sql
+gen_promocaoproduto.sql
+gen_lista.sql
+gen_lista_prod.sql
+gen_lista_prom.sql
+gen_entrega.sql
+gen_contrato.sql

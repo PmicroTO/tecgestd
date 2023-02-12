@@ -1,4 +1,4 @@
-CREATE ROLE listapopular NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOLOGIN NOREPLICATION NOBYPASSRLS;
+-- CREATE ROLE listapopular NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOLOGIN NOREPLICATION NOBYPASSRLS;
 
 -- DROP SCHEMA listapopular;
 
@@ -65,6 +65,21 @@ CREATE SEQUENCE listapopular.entrega_codentrega_seq1
 
 ALTER SEQUENCE listapopular.entrega_codentrega_seq1 OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.entrega_codentrega_seq1 TO lucio;
+
+-- DROP SEQUENCE listapopular.entrega_codentrega_seq2;
+
+CREATE SEQUENCE listapopular.entrega_codentrega_seq2
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.entrega_codentrega_seq2 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.entrega_codentrega_seq2 TO lucio;
 
 -- DROP SEQUENCE listapopular.historico_codhist_seq;
 
@@ -155,6 +170,21 @@ CREATE SEQUENCE listapopular.lista_codlista_seq1
 
 ALTER SEQUENCE listapopular.lista_codlista_seq1 OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.lista_codlista_seq1 TO lucio;
+
+-- DROP SEQUENCE listapopular.lista_codlista_seq2;
+
+CREATE SEQUENCE listapopular.lista_codlista_seq2
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.lista_codlista_seq2 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.lista_codlista_seq2 TO lucio;
 
 -- DROP SEQUENCE listapopular.listaprod_codlista_seq;
 
@@ -321,6 +351,21 @@ CREATE SEQUENCE listapopular.promocao_codprom_seq1
 ALTER SEQUENCE listapopular.promocao_codprom_seq1 OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.promocao_codprom_seq1 TO lucio;
 
+-- DROP SEQUENCE listapopular.promocao_codprom_seq2;
+
+CREATE SEQUENCE listapopular.promocao_codprom_seq2
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.promocao_codprom_seq2 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.promocao_codprom_seq2 TO lucio;
+
 -- DROP SEQUENCE listapopular.registra_codhist_seq;
 
 CREATE SEQUENCE listapopular.registra_codhist_seq
@@ -367,7 +412,7 @@ CREATE TABLE listapopular.cliente (
 	rua varchar(50) NOT NULL,
 	numero varchar(50) NOT NULL,
 	complemento varchar(255) NULL,
-	valorgasto money NOT NULL DEFAULT 0.00,
+	valorgasto money NULL DEFAULT 0.00,
 	dataingresso timestamp NOT NULL,
 	CONSTRAINT cliente_pk PRIMARY KEY (cpfcli),
 	CONSTRAINT cliente_un UNIQUE (telefone, email)
