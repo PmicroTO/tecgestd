@@ -246,7 +246,7 @@ CREATE TABLE listapopular.cliente (
 	cidade varchar(50) NOT NULL,
 	rua varchar(50) NOT NULL,
 	numero varchar(50) NOT NULL,
-	complemento varchar(255) NOT NULL,
+	complemento varchar(255) NULL,
 	CONSTRAINT cliente_pk PRIMARY KEY (cpfcli),
 	CONSTRAINT cliente_un UNIQUE (telefone, email)
 );
