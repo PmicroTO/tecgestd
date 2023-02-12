@@ -1,4 +1,7 @@
--- CREATE ROLE listapopular NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOLOGIN NOREPLICATION NOBYPASSRLS;
+
+CREATE ROLE listapopular NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOLOGIN NOREPLICATION NOBYPASSRLS;
+-- AVISO
+-- SE JA TIVER COM O ROLE listapopular criado a primeira linha vai gerar um erro, embora deva ser usada aonde nunca foi instalada a db.
 
 -- DROP SCHEMA listapopular;
 
