@@ -1,6 +1,6 @@
--- DROP SCHEMA listapopular;
-
 CREATE ROLE listapopular NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOLOGIN NOREPLICATION NOBYPASSRLS;
+
+-- DROP SCHEMA listapopular;
 
 CREATE SCHEMA listapopular AUTHORIZATION postgres;
 
@@ -21,6 +21,21 @@ CREATE SEQUENCE listapopular.contrato_codentrega_seq
 ALTER SEQUENCE listapopular.contrato_codentrega_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.contrato_codentrega_seq TO lucio;
 
+-- DROP SEQUENCE listapopular.contrato_codentrega_seq1;
+
+CREATE SEQUENCE listapopular.contrato_codentrega_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.contrato_codentrega_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.contrato_codentrega_seq1 TO lucio;
+
 -- DROP SEQUENCE listapopular.entrega_codentrega_seq;
 
 CREATE SEQUENCE listapopular.entrega_codentrega_seq
@@ -35,6 +50,21 @@ CREATE SEQUENCE listapopular.entrega_codentrega_seq
 
 ALTER SEQUENCE listapopular.entrega_codentrega_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.entrega_codentrega_seq TO lucio;
+
+-- DROP SEQUENCE listapopular.entrega_codentrega_seq1;
+
+CREATE SEQUENCE listapopular.entrega_codentrega_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.entrega_codentrega_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.entrega_codentrega_seq1 TO lucio;
 
 -- DROP SEQUENCE listapopular.historico_codhist_seq;
 
@@ -51,6 +81,21 @@ CREATE SEQUENCE listapopular.historico_codhist_seq
 ALTER SEQUENCE listapopular.historico_codhist_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.historico_codhist_seq TO lucio;
 
+-- DROP SEQUENCE listapopular.historico_codhist_seq1;
+
+CREATE SEQUENCE listapopular.historico_codhist_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.historico_codhist_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.historico_codhist_seq1 TO lucio;
+
 -- DROP SEQUENCE listapopular.histprod_codhist_seq;
 
 CREATE SEQUENCE listapopular.histprod_codhist_seq
@@ -65,6 +110,21 @@ CREATE SEQUENCE listapopular.histprod_codhist_seq
 
 ALTER SEQUENCE listapopular.histprod_codhist_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.histprod_codhist_seq TO lucio;
+
+-- DROP SEQUENCE listapopular.histprod_codhist_seq1;
+
+CREATE SEQUENCE listapopular.histprod_codhist_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.histprod_codhist_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.histprod_codhist_seq1 TO lucio;
 
 -- DROP SEQUENCE listapopular.histprom_codhist_seq;
 
@@ -81,6 +141,21 @@ CREATE SEQUENCE listapopular.histprom_codhist_seq
 ALTER SEQUENCE listapopular.histprom_codhist_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.histprom_codhist_seq TO lucio;
 
+-- DROP SEQUENCE listapopular.histprom_codhist_seq1;
+
+CREATE SEQUENCE listapopular.histprom_codhist_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.histprom_codhist_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.histprom_codhist_seq1 TO lucio;
+
 -- DROP SEQUENCE listapopular.histprom_codprom_seq;
 
 CREATE SEQUENCE listapopular.histprom_codprom_seq
@@ -95,6 +170,21 @@ CREATE SEQUENCE listapopular.histprom_codprom_seq
 
 ALTER SEQUENCE listapopular.histprom_codprom_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.histprom_codprom_seq TO lucio;
+
+-- DROP SEQUENCE listapopular.histprom_codprom_seq1;
+
+CREATE SEQUENCE listapopular.histprom_codprom_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.histprom_codprom_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.histprom_codprom_seq1 TO lucio;
 
 -- DROP SEQUENCE listapopular.lista_codlista_seq;
 
@@ -111,6 +201,21 @@ CREATE SEQUENCE listapopular.lista_codlista_seq
 ALTER SEQUENCE listapopular.lista_codlista_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.lista_codlista_seq TO lucio;
 
+-- DROP SEQUENCE listapopular.lista_codlista_seq1;
+
+CREATE SEQUENCE listapopular.lista_codlista_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.lista_codlista_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.lista_codlista_seq1 TO lucio;
+
 -- DROP SEQUENCE listapopular.listaprod_codlista_seq;
 
 CREATE SEQUENCE listapopular.listaprod_codlista_seq
@@ -125,6 +230,21 @@ CREATE SEQUENCE listapopular.listaprod_codlista_seq
 
 ALTER SEQUENCE listapopular.listaprod_codlista_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.listaprod_codlista_seq TO lucio;
+
+-- DROP SEQUENCE listapopular.listaprod_codlista_seq1;
+
+CREATE SEQUENCE listapopular.listaprod_codlista_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.listaprod_codlista_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.listaprod_codlista_seq1 TO lucio;
 
 -- DROP SEQUENCE listapopular.listaprom_codlista_seq;
 
@@ -141,6 +261,21 @@ CREATE SEQUENCE listapopular.listaprom_codlista_seq
 ALTER SEQUENCE listapopular.listaprom_codlista_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.listaprom_codlista_seq TO lucio;
 
+-- DROP SEQUENCE listapopular.listaprom_codlista_seq1;
+
+CREATE SEQUENCE listapopular.listaprom_codlista_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.listaprom_codlista_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.listaprom_codlista_seq1 TO lucio;
+
 -- DROP SEQUENCE listapopular.listaprom_codprom_seq;
 
 CREATE SEQUENCE listapopular.listaprom_codprom_seq
@@ -155,6 +290,21 @@ CREATE SEQUENCE listapopular.listaprom_codprom_seq
 
 ALTER SEQUENCE listapopular.listaprom_codprom_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.listaprom_codprom_seq TO lucio;
+
+-- DROP SEQUENCE listapopular.listaprom_codprom_seq1;
+
+CREATE SEQUENCE listapopular.listaprom_codprom_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.listaprom_codprom_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.listaprom_codprom_seq1 TO lucio;
 
 -- DROP SEQUENCE listapopular.oferta_codprom_seq;
 
@@ -171,6 +321,21 @@ CREATE SEQUENCE listapopular.oferta_codprom_seq
 ALTER SEQUENCE listapopular.oferta_codprom_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.oferta_codprom_seq TO lucio;
 
+-- DROP SEQUENCE listapopular.oferta_codprom_seq1;
+
+CREATE SEQUENCE listapopular.oferta_codprom_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.oferta_codprom_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.oferta_codprom_seq1 TO lucio;
+
 -- DROP SEQUENCE listapopular.prodpromocao_codprom_seq;
 
 CREATE SEQUENCE listapopular.prodpromocao_codprom_seq
@@ -185,6 +350,21 @@ CREATE SEQUENCE listapopular.prodpromocao_codprom_seq
 
 ALTER SEQUENCE listapopular.prodpromocao_codprom_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.prodpromocao_codprom_seq TO lucio;
+
+-- DROP SEQUENCE listapopular.prodpromocao_codprom_seq1;
+
+CREATE SEQUENCE listapopular.prodpromocao_codprom_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.prodpromocao_codprom_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.prodpromocao_codprom_seq1 TO lucio;
 
 -- DROP SEQUENCE listapopular.promocao_codprom_seq;
 
@@ -201,6 +381,21 @@ CREATE SEQUENCE listapopular.promocao_codprom_seq
 ALTER SEQUENCE listapopular.promocao_codprom_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.promocao_codprom_seq TO lucio;
 
+-- DROP SEQUENCE listapopular.promocao_codprom_seq1;
+
+CREATE SEQUENCE listapopular.promocao_codprom_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.promocao_codprom_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.promocao_codprom_seq1 TO lucio;
+
 -- DROP SEQUENCE listapopular.registra_codhist_seq;
 
 CREATE SEQUENCE listapopular.registra_codhist_seq
@@ -216,6 +411,21 @@ CREATE SEQUENCE listapopular.registra_codhist_seq
 ALTER SEQUENCE listapopular.registra_codhist_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.registra_codhist_seq TO lucio;
 
+-- DROP SEQUENCE listapopular.registra_codhist_seq1;
+
+CREATE SEQUENCE listapopular.registra_codhist_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.registra_codhist_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.registra_codhist_seq1 TO lucio;
+
 -- DROP SEQUENCE listapopular.registra_codlista_seq;
 
 CREATE SEQUENCE listapopular.registra_codlista_seq
@@ -230,6 +440,21 @@ CREATE SEQUENCE listapopular.registra_codlista_seq
 
 ALTER SEQUENCE listapopular.registra_codlista_seq OWNER TO lucio;
 GRANT ALL ON SEQUENCE listapopular.registra_codlista_seq TO lucio;
+
+-- DROP SEQUENCE listapopular.registra_codlista_seq1;
+
+CREATE SEQUENCE listapopular.registra_codlista_seq1
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE listapopular.registra_codlista_seq1 OWNER TO lucio;
+GRANT ALL ON SEQUENCE listapopular.registra_codlista_seq1 TO lucio;
 -- listapopular.cliente definition
 
 -- Drop table
@@ -238,7 +463,7 @@ GRANT ALL ON SEQUENCE listapopular.registra_codlista_seq TO lucio;
 
 CREATE TABLE listapopular.cliente (
 	cpfcli numeric(11) NOT NULL,
-	nome varchar(50) NOT NULL,	
+	nome varchar(50) NOT NULL,
 	telefone numeric(11) NOT NULL,
 	email varchar(50) NOT NULL,
 	cep numeric(8) NOT NULL,
@@ -288,6 +513,25 @@ COMMENT ON COLUMN listapopular.entrega.hrchegada IS 'Null pois pode ser que nao 
 
 ALTER TABLE listapopular.entrega OWNER TO lucio;
 GRANT ALL ON TABLE listapopular.entrega TO lucio;
+
+
+-- listapopular.historico definition
+
+-- Drop table
+
+-- DROP TABLE listapopular.historico;
+
+CREATE TABLE listapopular.historico (
+	codhist bigserial NOT NULL,
+	valorgasto money NOT NULL DEFAULT 0.00,
+	CONSTRAINT historico_pk PRIMARY KEY (codhist)
+);
+COMMENT ON TABLE listapopular.historico IS 'Historico do cliente, subdividido em mais duas partes, Produtos e Promocoes do historico.';
+
+-- Permissions
+
+ALTER TABLE listapopular.historico OWNER TO lucio;
+GRANT ALL ON TABLE listapopular.historico TO lucio;
 
 
 -- listapopular.lista definition
@@ -350,27 +594,6 @@ COMMENT ON TABLE listapopular.contrato IS 'Livro Base pag 154. 5.2.6, relacionam
 
 ALTER TABLE listapopular.contrato OWNER TO lucio;
 GRANT ALL ON TABLE listapopular.contrato TO lucio;
-
-
--- listapopular.historico definition
-
--- Drop table
-
--- DROP TABLE listapopular.historico;
-
-CREATE TABLE listapopular.historico (
-	codhist bigserial NOT NULL,
-	cpfcli numeric(11) NOT NULL,
-	valorgasto money NOT NULL DEFAULT 0.00,
-	CONSTRAINT historico_pk PRIMARY KEY (codhist),
-	CONSTRAINT historico_fk FOREIGN KEY (cpfcli) REFERENCES listapopular.cliente(cpfcli)
-);
-COMMENT ON TABLE listapopular.historico IS 'Historico do cliente, subdividido em mais duas partes, Produtos e Promocoes do historico.';
-
--- Permissions
-
-ALTER TABLE listapopular.historico OWNER TO lucio;
-GRANT ALL ON TABLE listapopular.historico TO lucio;
 
 
 -- listapopular.produto definition

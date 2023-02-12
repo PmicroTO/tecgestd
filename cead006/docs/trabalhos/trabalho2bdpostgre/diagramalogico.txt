@@ -1,0 +1,58 @@
+
+Cliente (CpfCli,Nome,Telefone,Email,CEP,Estado,Cidade,Rua,Casa,Complemento)
+
+Historico (CodHist,ValorGasto)
+HistProd1 (CodProd,CodHist,CnpjMer,Quantia)
+	CodProd referencia Produto
+	CodHist referencia Historico
+	CnpjMer referencia Mercado
+HistProm1 (CodProm,CodHist,CnpjMer,Quantia)
+	CodProm referencia Promocao
+	CodHist referencia Historico
+	CnpjMer referencia Mercado
+
+Lista (CodLista,Data,Valor)
+ListaProd1 (CodLista,CodProd,CnpjMer,Quantia)
+	CodLista referencia Lista
+	CodProd referencia Produto
+	CnpjMer referencia Mercado
+
+ListaProm1 (CodLista,CodProm,CnpjMer,Quantia)
+	CodLista referencia Lista
+	CodProm referencia Promocao
+	CnpjMer referencia Mercado
+
+Registra (CodLista,CodHist,CpfCli)
+	CodLista referencia Lista
+	CodHist referencia Historico
+	CpfCli referencia Cliente
+
+Produto (CodProd4,CnjpMer,Nome,Valor)
+	CnjpMer referencia Mercado
+4 Codigo de barras, porem o nome CodProd facilita identificacao como FK.
+
+Promocao (CodProm,CnpjMer,Nome)
+	CnpjMer referencia Mercado
+ProdPromocao1 (CodProm,CnpjMer,CodProd,Quantia,Desconto)
+	CodProm referencia Promocao
+	CodProd referencia Produto
+	CnjpMer referencia Mercado
+
+Mercado (CnpjMer,Nome,Cep,Estado,Cidade,Rua,Numero)
+
+Oferta (CnpjMer,CodProd,CodProm)
+	CnpjMer referencia Mercado
+	CodProd referencia Produto
+	CodProm referencia Promocao
+
+Entrega (CodEntrega,Tipo2,Placa3,Telefone3,HrSaida,HrChegada)
+2 Tipo de entrega,do app ou propria do mercado.
+3 Null: Placa do veiculo caso seja entrega do app.
+3 Null: Telefone do entregador caso seja entrega do app.
+
+Contrato (CodEntrega,CnpjMer)
+	CodEntrega referencia Entrega
+	CnpjMer referencia Mercado
+
+1 Separado pela impossibilidade de multivalor na abordagem relacional.
+
