@@ -1,4 +1,4 @@
--- DROP SCHEMA public;
+DROP SCHEMA public;
 
 CREATE SCHEMA public AUTHORIZATION postgres;
 
@@ -11,7 +11,7 @@ COMMENT ON SCHEMA public IS 'standard public schema';
 
 CREATE TABLE public.cliente (
 	cpfcli numeric(11) NOT NULL,
-	telefone numeric(14) NOT NULL,
+	telefone numeric(11) NOT NULL,
 	cep numeric(8) NOT NULL,
 	estado varchar(50) NOT NULL,
 	cidade varchar(50) NOT NULL,
