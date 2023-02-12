@@ -25,8 +25,36 @@ where prod.nome like '%pao%' or prod.nome like '%Pao%'
 group by prod.nome, mer.nome
 order by min(prod.valor) asc;*/
 
--- Lista os produtos mais caros de todos os mercados com valores acima de 50 reais.
+-- Lista os produtos mais caros de todos os mercados com valores acima de 50 reais em ordem crescente.
 /*select prod.valor, prod.nome, mer.nome  from listapopular.produto as prod, listapopular.mercado as mer
 where prod.valor > 50::money
 order by prod.valor asc;*/
+
+-- Consultas com JUNÇÃO
+
+-- Lista cada produto avulço na lista de compras de um usuario dado seu cpf.
+/*select cli.nome, listapopular.produto.nome, listapopular.produto.valor, listprod.quantia 
+	from listapopular.cliente as cli
+		join listapopular.lista as lis 
+			on lis.cpfcli=cli.cpfcli
+		join listapopular.listaprod as listprod 
+			on listprod.cpfcli=cli.cpfcli
+		join listapopular.produto 
+			on listapopular.produto.codprod=listprod.codprod
+	where cli.cpfcli = 48782206007;*/
+
+-- Lista cada promocao na lista de compras de um usuario dado seu cpf.
+/*select prom.nome, cli.nome, lprom.codlista  
+	from listapopular.promocao as prom
+		join listapopular.listaprom as lprom
+			on lprom.codprom=prom.codprom 
+		join listapopular.cliente as cli
+			on cli.cpfcli=lprom.cpfcli
+	where cli.cpfcli = '3448445363';*/
+
+
+
+	
+	
+
 
