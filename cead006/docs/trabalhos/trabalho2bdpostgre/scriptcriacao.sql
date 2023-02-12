@@ -1,4 +1,5 @@
 CREATE ROLE listapopular NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOLOGIN NOREPLICATION NOBYPASSRLS;
+
 -- DROP SCHEMA listapopular;
 
 CREATE SCHEMA listapopular AUTHORIZATION postgres;
@@ -583,7 +584,7 @@ GRANT ALL ON TABLE listapopular.mercado TO lucio;
 
 CREATE TABLE listapopular.contrato (
 	cnpjmer numeric(14) NOT NULL,
-	codentrega bigserial NOT NULL,
+	codentrega int8 NOT NULL,
 	CONSTRAINT contrato_fk FOREIGN KEY (cnpjmer) REFERENCES listapopular.mercado(cnpjmer),
 	CONSTRAINT contrato_fk_1 FOREIGN KEY (codentrega) REFERENCES listapopular.entrega(codentrega)
 );
@@ -648,8 +649,8 @@ GRANT ALL ON TABLE listapopular.promocao TO lucio;
 
 CREATE TABLE listapopular.registra (
 	cpfcli numeric(11) NOT NULL,
-	codlista bigserial NOT NULL,
-	codhist bigserial NOT NULL,
+	codlista int8 NOT NULL,
+	codhist int8 NOT NULL,
 	CONSTRAINT registra_pk PRIMARY KEY (cpfcli, codlista, codhist),
 	CONSTRAINT registra_fk FOREIGN KEY (cpfcli) REFERENCES listapopular.cliente(cpfcli),
 	CONSTRAINT registra_fk_1 FOREIGN KEY (codlista) REFERENCES listapopular.lista(codlista),
@@ -663,54 +664,6 @@ ALTER TABLE listapopular.registra OWNER TO lucio;
 GRANT ALL ON TABLE listapopular.registra TO lucio;
 
 
--- listapopular.histprod definition
-
--- Drop table
-
--- DROP TABLE listapopular.histprod;
-
-CREATE TABLE listapopular.histprod (
-	codhist bigserial NOT NULL,
-	cnpjmer numeric(14) NOT NULL,
-	codprod numeric(13) NOT NULL, -- Codigo de barras, porem o nome CodProd facilita identificacao como FK.
-	quantia int4 NOT NULL,
-	CONSTRAINT histprod_pk PRIMARY KEY (codprod, cnpjmer, codhist),
-	CONSTRAINT histprod_fk FOREIGN KEY (codhist) REFERENCES listapopular.historico(codhist),
-	CONSTRAINT histprod_fk_1 FOREIGN KEY (cnpjmer,codprod) REFERENCES listapopular.produto(cnpjmer,codprod)
-);
-
--- Column comments
-
-COMMENT ON COLUMN listapopular.histprod.codprod IS 'Codigo de barras, porem o nome CodProd facilita identificacao como FK.';
-
--- Permissions
-
-ALTER TABLE listapopular.histprod OWNER TO lucio;
-GRANT ALL ON TABLE listapopular.histprod TO lucio;
-
-
--- listapopular.histprom definition
-
--- Drop table
-
--- DROP TABLE listapopular.histprom;
-
-CREATE TABLE listapopular.histprom (
-	cnpjmer numeric(14) NOT NULL,
-	codprom bigserial NOT NULL,
-	codhist bigserial NOT NULL,
-	quantia int4 NOT NULL,
-	CONSTRAINT histprom_pk PRIMARY KEY (cnpjmer, codprom, codhist),
-	CONSTRAINT histprom_fk FOREIGN KEY (cnpjmer,codprom) REFERENCES listapopular.promocao(cnpjmer,codprom),
-	CONSTRAINT histprom_fk_1 FOREIGN KEY (codhist) REFERENCES listapopular.historico(codhist)
-);
-
--- Permissions
-
-ALTER TABLE listapopular.histprom OWNER TO lucio;
-GRANT ALL ON TABLE listapopular.histprom TO lucio;
-
-
 -- listapopular.listaprod definition
 
 -- Drop table
@@ -718,7 +671,7 @@ GRANT ALL ON TABLE listapopular.histprom TO lucio;
 -- DROP TABLE listapopular.listaprod;
 
 CREATE TABLE listapopular.listaprod (
-	codlista bigserial NOT NULL,
+	codlista int8 NOT NULL,
 	cnpjmer numeric(14) NOT NULL,
 	codprod numeric(13) NOT NULL, -- Codigo de barras, porem o nome CodProd facilita identificacao como FK.
 	quantia int4 NOT NULL,
@@ -744,8 +697,8 @@ GRANT ALL ON TABLE listapopular.listaprod TO lucio;
 -- DROP TABLE listapopular.listaprom;
 
 CREATE TABLE listapopular.listaprom (
-	codlista bigserial NOT NULL,
-	codprom bigserial NOT NULL,
+	codlista int8 NOT NULL,
+	codprom int8 NOT NULL,
 	cnpjmer numeric(14) NOT NULL,
 	quantia int4 NOT NULL,
 	CONSTRAINT listaprom_pk PRIMARY KEY (cnpjmer, codprom, codlista),
@@ -766,19 +719,16 @@ GRANT ALL ON TABLE listapopular.listaprom TO lucio;
 -- DROP TABLE listapopular.oferta;
 
 CREATE TABLE listapopular.oferta (
-	codprod numeric(13) NOT NULL, -- Codigo de barras, porem o nome CodProd facilita identificacao como FK.
+	codprod numeric(13) NULL,
 	cnpjmer numeric(14) NOT NULL,
-	codprom bigserial NOT NULL,
-	CONSTRAINT oferta_pk PRIMARY KEY (codprod, cnpjmer, codprom),
+	codprom int8 NULL,
+	CONSTRAINT oferta_pk PRIMARY KEY (cnpjmer),
 	CONSTRAINT oferta_fk FOREIGN KEY (cnpjmer) REFERENCES listapopular.mercado(cnpjmer),
 	CONSTRAINT oferta_fk_1 FOREIGN KEY (cnpjmer,codprod) REFERENCES listapopular.produto(cnpjmer,codprod),
 	CONSTRAINT oferta_fk_2 FOREIGN KEY (cnpjmer,codprom) REFERENCES listapopular.promocao(cnpjmer,codprom)
 );
-COMMENT ON TABLE listapopular.oferta IS 'Livro Base pag 154. 5.2.7, relacionamentos de gau maior que 2.';
-
--- Column comments
-
-COMMENT ON COLUMN listapopular.oferta.codprod IS 'Codigo de barras, porem o nome CodProd facilita identificacao como FK.';
+COMMENT ON TABLE listapopular.oferta IS 'Livro Base pag 154. 5.2.7, relacionamentos de gau maior que 2.
+A oferta poder ser de produto ou promocao.';
 
 -- Permissions
 
@@ -793,7 +743,7 @@ GRANT ALL ON TABLE listapopular.oferta TO lucio;
 -- DROP TABLE listapopular.prodpromocao;
 
 CREATE TABLE listapopular.prodpromocao (
-	codprom bigserial NOT NULL,
+	codprom int8 NOT NULL,
 	codprod numeric(13) NOT NULL, -- Codigo de barras, porem o nome CodProd facilita identificacao como FK.
 	cnpjmer numeric(14) NOT NULL,
 	quantia int4 NOT NULL,
